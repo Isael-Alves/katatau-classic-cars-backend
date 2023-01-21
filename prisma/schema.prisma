@@ -7,10 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model car_data {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now()) @db.Timestamp(6)
-  model      String   @db.VarChar(255)
-  ano        Int
-  url        String?  @db.VarChar(50)
+model Car_data {
+  id          Int          @id @default(autoincrement())
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+  model       String       @db.VarChar(255)
+  year        Int
+  url         String       @db.VarChar(255)
+  description String       @db.Text
+  mainImage   String       @db.VarChar(255)
+  history     String       @db.Text
+  curiosities String?      @db.Text
+  make        String       @db.VarChar(30)
+  Car_images  Car_images[]
+}
+
+model Car_images {
+  id       Int      @id @default(autoincrement())
+  carId    Int
+  Car_data Car_data @relation(fields: [carId], references: [id])
+  imageId  Int
+  Images   Images   @relation(fields: [imageId], references: [id])
+}
+
+model Images {
+  id         Int          @id @default(autoincrement())
+  url        String       @db.VarChar(255)
+  Car_images Car_images[]
 }
