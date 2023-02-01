@@ -2,14 +2,18 @@ import express, { Express } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDb, disconnectDB } from "./config/database";
+import { loadEnv } from "./config/envs";
+import { homeRouter } from "./routers/home-router";
 dotenv.config();
 
+loadEnv();
 const app = express();
 
 app
   .use(cors())
   .use(express.json())
-  .get("/health", (_req, res) => res.send("OK"));
+  .get("/health", (_req, res) => res.send("OK"))
+  .get("/home", homeRouter);
 
 export function init(): Promise<Express> {
   connectDb();

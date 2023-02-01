@@ -11,12 +11,7 @@
       "src",
       "tests"
     ],
-    "baseUrl": "src",
-    "paths": {
-      "@/*": [
-        "*"
-      ]
-    }
+    "baseUrl": "src"
   },
   "include": [
     "src",
